@@ -1,11 +1,11 @@
 # 1. Двусторонняя конвертация - 1
 # 2. Блокировка перевода при неккоректных значениях - 1
-# 3. Кнопка очистки - 0.5
-# 4.* Конвертация по нажатию Enter
+# 3. Кнопка очистки - 1
+# 4.* Конвертация по нажатию Enter - 1
 
 import sys
 
-from PyQt5.QtCore import QObject
+from PyQt5.QtCore import Qt, QObject
 
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget,
@@ -24,6 +24,7 @@ class Converter(QMainWindow):
         self.initSignals()
         self.initLayouts()
         self.initActive()
+
 
     def initUi(self):
         self.setWindowTitle('Конвертер валют')
@@ -78,6 +79,12 @@ class Converter(QMainWindow):
     def onClear(self):
         self.ruAmount.setValue(0.0)
         self.dAmount.setValue(0.0)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Return:
+            self.onClick()
+
+   
             
 
 if __name__ == '__main__':
